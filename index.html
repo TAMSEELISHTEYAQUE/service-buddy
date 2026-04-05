@@ -8,111 +8,30 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f172a, #0ea5e9);
-            color: white;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px 50px;
-            background: rgba(0,0,0,0.3);
-        }
-
-        header h1 {
-            color: #00ffff;
-        }
-
-        nav a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-        }
-
-        .btn {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: cyan;
-            color: black;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .features {
-            padding: 60px 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.2);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
     <h1>HELP ME BUDDY</h1>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Features</a>
-        <a href="#">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
     </nav>
 </header>
 
+<!-- HERO SECTION -->
 <section class="hero">
     <h2>Connecting Local Skills with Local Needs</h2>
     <p>Your hyperlocal platform to find trusted services instantly.</p>
-    <button class="btn">Get Started</button>
+    <button class="btn" onclick="startApp()">Get Started</button>
 </section>
 
+<!-- FEATURES -->
 <section class="features">
     <div class="card">
         <h3>📍 Hyperlocal Matching</h3>
@@ -135,9 +54,13 @@
     </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
     <p>© 2026 Help Me Buddy | Team THE BLUE OCEAN</p>
 </footer>
+
+<!-- JS FILE -->
+<script src="js/script.js"></script>
 
 </body>
 </html>
