@@ -1,39 +1,105 @@
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+// 🔥 FIREBASE CONFIG (PASTE YOUR REAL KEYS)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+};
+
+// INIT
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ================= AUTH =================
+
+// SIGNUP
+function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("Signup Successful"))
+        .catch(err => alert(err.message));
 }
 
-.auth-box {
-    background: rgba(255,255,255,0.1);
-    padding: 30px;
-    border-radius: 15px;
-    width: 300px;
-    text-align: center;
+// LOGIN
+function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            window.location.href = "dashboard.html";
+        })
+        .catch(err => alert(err.message));
 }
 
-.auth-box input {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
+// LOGOUT
+function logout() {
+    auth.signOut().then(() => {
+        window.location.href = "login.html";
+    });
 }
 
-.auth-box button {
-    width: 100%;
-    padding: 10px;
-    background: cyan;
-    border: none;
+// ================= SERVICES =================
+
+// LOAD SERVICES
+function loadServices() {
+    const container = document.getElementById("services");
+    if (!container) return;
+
+    container.innerHTML = "<p>Loading services...</p>";
+
+    db.collection("services").get().then(snapshot => {
+        container.innerHTML = "";
+
+        snapshot.forEach(doc => {
+            const s = doc.data();
+
+            container.innerHTML += `
+            <div class="card">
+                <h3>${s.name}</h3>
+                <p>${s.desc}</p>
+                <p><b>₹${s.price}</b></p>
+                <button onclick="bookService('${s.name}')">Book</button>
+            </div>
+            `;
+        });
+    });
 }
 
-.search-box {
-    text-align: center;
-    margin: 20px;
+// SEARCH
+function searchService() {
+    const query = document.getElementById("search").value.toLowerCase();
+    const container = document.getElementById("services");
+
+    db.collection("services").get().then(snapshot => {
+        container.innerHTML = "";
+
+        snapshot.forEach(doc => {
+            const s = doc.data();
+
+            if (s.name.toLowerCase().includes(query)) {
+                container.innerHTML += `
+                <div class="card">
+                    <h3>${s.name}</h3>
+                    <p>${s.desc}</p>
+                    <p><b>₹${s.price}</b></p>
+                    <button onclick="bookService('${s.name}')">Book</button>
+                </div>
+                `;
+            }
+        });
+    });
 }
 
-.services {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
+// BOOK
+function bookService(name) {
+    alert("Service booked: " + name);
 }
+
+// ================= AUTO LOAD =================
+
+window.onload = () => {
+    loadServices();
+};
