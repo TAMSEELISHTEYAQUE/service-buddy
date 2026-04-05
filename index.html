@@ -8,7 +8,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <!-- External CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -21,13 +21,16 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
     </nav>
 </header>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section class="hero">
     <h2>Connecting Local Skills with Local Needs</h2>
     <p>Your hyperlocal platform to find trusted services instantly.</p>
+
+    <!-- Main CTA -->
     <button class="btn" onclick="startApp()">Get Started</button>
 </section>
 
@@ -54,12 +57,21 @@
     </div>
 </section>
 
+<!-- IMAGE SECTION -->
+<section class="hero">
+    <h2>Explore Services</h2>
+
+    <!-- Safe image (won't break if missing) -->
+    <img src="images/service.png" alt="Service Image" width="200"
+         onerror="this.style.display='none'">
+</section>
+
 <!-- FOOTER -->
 <footer>
     <p>© 2026 Help Me Buddy | Team THE BLUE OCEAN</p>
 </footer>
 
-<!-- JS FILE -->
+<!-- JS -->
 <script src="js/script.js"></script>
 
 </body>
