@@ -1,105 +1,76 @@
-// 🔥 FIREBASE CONFIG (PASTE YOUR REAL KEYS)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-};
-
-// INIT
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-// ================= AUTH =================
-
-// SIGNUP
-function signup() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert("Signup Successful"))
-        .catch(err => alert(err.message));
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #0f172a;
+    color: white;
 }
 
-// LOGIN
-function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = "dashboard.html";
-        })
-        .catch(err => alert(err.message));
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #020617;
 }
 
-// LOGOUT
-function logout() {
-    auth.signOut().then(() => {
-        window.location.href = "login.html";
-    });
+header h1 {
+    margin: 0;
 }
 
-// ================= SERVICES =================
-
-// LOAD SERVICES
-function loadServices() {
-    const container = document.getElementById("services");
-    if (!container) return;
-
-    container.innerHTML = "<p>Loading services...</p>";
-
-    db.collection("services").get().then(snapshot => {
-        container.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const s = doc.data();
-
-            container.innerHTML += `
-            <div class="card">
-                <h3>${s.name}</h3>
-                <p>${s.desc}</p>
-                <p><b>₹${s.price}</b></p>
-                <button onclick="bookService('${s.name}')">Book</button>
-            </div>
-            `;
-        });
-    });
+nav a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-// SEARCH
-function searchService() {
-    const query = document.getElementById("search").value.toLowerCase();
-    const container = document.getElementById("services");
-
-    db.collection("services").get().then(snapshot => {
-        container.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const s = doc.data();
-
-            if (s.name.toLowerCase().includes(query)) {
-                container.innerHTML += `
-                <div class="card">
-                    <h3>${s.name}</h3>
-                    <p>${s.desc}</p>
-                    <p><b>₹${s.price}</b></p>
-                    <button onclick="bookService('${s.name}')">Book</button>
-                </div>
-                `;
-            }
-        });
-    });
+.hero {
+    text-align: center;
+    margin-top: 100px;
 }
 
-// BOOK
-function bookService(name) {
-    alert("Service booked: " + name);
+.hero h2 {
+    font-size: 32px;
 }
 
-// ================= AUTO LOAD =================
+.hero p {
+    color: #94a3b8;
+}
 
-window.onload = () => {
-    loadServices();
-};
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #38bdf8;
+    color: black;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #0ea5e9;
+}
+
+.search-box {
+    text-align: center;
+    margin: 20px;
+}
+
+.search-box input {
+    padding: 10px;
+    width: 250px;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+}
