@@ -64,3 +64,4 @@ function logout(){
 }
 
 window.onload = loadServices;
+navigator.geolocation.getCurrentPosition(...)
