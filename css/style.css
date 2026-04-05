@@ -1,1 +1,39 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
+.auth-box {
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+}
+
+.auth-box input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 10px;
+    background: cyan;
+    border: none;
+}
+
+.search-box {
+    text-align: center;
+    margin: 20px;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
