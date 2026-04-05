@@ -1,105 +1,32 @@
-// 🔥 FIREBASE CONFIG (PASTE YOUR REAL KEYS)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
 
-// INIT
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+<link rel="stylesheet" href="css/style.css">
+</head>
 
-// ================= AUTH =================
+<body>
 
-// SIGNUP
-function signup() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+<header>
+    <h1>Dashboard</h1>
+    <button class="btn" onclick="logout()">Logout</button>
+</header>
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert("Signup Successful"))
-        .catch(err => alert(err.message));
-}
+<section class="search-box">
+    <input type="text" id="search" placeholder="Search services...">
+    <button class="btn" onclick="searchService()">Search</button>
+</section>
 
-// LOGIN
-function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+<section id="services" class="services"></section>
 
-    auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = "dashboard.html";
-        })
-        .catch(err => alert(err.message));
-}
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-// LOGOUT
-function logout() {
-    auth.signOut().then(() => {
-        window.location.href = "login.html";
-    });
-}
+<script src="js/script.js"></script>
 
-// ================= SERVICES =================
-
-// LOAD SERVICES
-function loadServices() {
-    const container = document.getElementById("services");
-    if (!container) return;
-
-    container.innerHTML = "<p>Loading services...</p>";
-
-    db.collection("services").get().then(snapshot => {
-        container.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const s = doc.data();
-
-            container.innerHTML += `
-            <div class="card">
-                <h3>${s.name}</h3>
-                <p>${s.desc}</p>
-                <p><b>₹${s.price}</b></p>
-                <button onclick="bookService('${s.name}')">Book</button>
-            </div>
-            `;
-        });
-    });
-}
-
-// SEARCH
-function searchService() {
-    const query = document.getElementById("search").value.toLowerCase();
-    const container = document.getElementById("services");
-
-    db.collection("services").get().then(snapshot => {
-        container.innerHTML = "";
-
-        snapshot.forEach(doc => {
-            const s = doc.data();
-
-            if (s.name.toLowerCase().includes(query)) {
-                container.innerHTML += `
-                <div class="card">
-                    <h3>${s.name}</h3>
-                    <p>${s.desc}</p>
-                    <p><b>₹${s.price}</b></p>
-                    <button onclick="bookService('${s.name}')">Book</button>
-                </div>
-                `;
-            }
-        });
-    });
-}
-
-// BOOK
-function bookService(name) {
-    alert("Service booked: " + name);
-}
-
-// ================= AUTO LOAD =================
-
-window.onload = () => {
-    loadServices();
-};
+</body>
+</html>
